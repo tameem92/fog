@@ -2,22 +2,12 @@ module Fog
   module DNS
     class Rage4
       class Real
-        # Updates an existing record
+        # Updates existing records in bulk
         # ==== Parameters
-        # * record_id <~Integer> The id of the record you wish to update
-        # * name <~String> Name of record, include domain name
-        # * content <~String> IP address or Domain name
-        # * type <~Integer> The type of record to create see list_record_types
-        # * priority <~Integer> - Record prioirity (nullable)
-        # * failover <~Boolean> Enable/disable failover default false
-        # * failovercontent <~String> Failover value, only valid for A/AAAA records
-        # * ttl <~Integer> - Time to live
-        # * geozone <~Long> Geo region id, see list_geo_regions
-        # * geolock <~Boolean> Lock geo coordinates, default false
-        # * geolat <~Double> Geo latitude, (nullable)
-        # * geolong <~Double> Geo longitude, (nullable)
-        # * udplimit <~Boolean> Limit number of records returned, (nullable, default false)
-        #
+        # * zone_id <~Integer> Need to specify the zone id
+        # * options <~Hash> Options should contain the body for the post
+        #                   in the following format.
+        #                   [{:id=><record_id>, :priority=>2}, {:id=><record_id>, :priority=>2}]
         # ==== Returns
         # * response<~Excon::Response>:
         #   * body<~Hash>:
@@ -35,7 +25,8 @@ module Fog
                   :expects  => 200,
                   :method   => 'POST',
                   :body     => body,
-                  :path     => path
+                  :path     => path,
+                  :headers => { 'Content-Type' => 'application/json' },
           )
         end
       end
