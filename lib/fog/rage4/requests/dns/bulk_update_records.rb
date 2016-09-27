@@ -26,7 +26,9 @@ module Fog
                   :method   => 'POST',
                   :body     => body,
                   :path     => path,
-                  :headers => { 'Content-Type' => 'application/json' },
+                  :headers => {
+                    'Content-Type' => "application/json; charset=UTF-8",
+                  },
           )
         end
       end
